@@ -15,6 +15,11 @@ urlcolor: cyan
 
 \clearpage
 
+# Class Comments
+
+1. How will you improve upon Google Research's project?
+2. etc
+
 # Project Repository
 Please put the URL of your project repository on GitHub here. I expect to see all students in the team actively contributing to the repository throughout the semester. 
 
