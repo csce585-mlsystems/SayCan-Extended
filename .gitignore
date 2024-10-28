@@ -1,6 +1,14 @@
-secret.txt
+# SayCan specific files
+bowl/
+bowl.zip
+ur5e/
+ur5e.zip
+robotiq_2f_85/
+robotiq_2f_85.zip
+image_path_v2/
+
 # Byte-compiled / optimized / DLL files
-__pycache__/
+**pycache**/
 *.py[cod]
 *$py.class
 
