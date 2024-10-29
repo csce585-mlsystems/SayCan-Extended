@@ -7,6 +7,15 @@ robotiq_2f_85/
 robotiq_2f_85.zip
 image_path_v2/
 
+# Checkpoints and model weights
+ckpt_*.npz
+cliport_weights.*
+dataset-*.pkl
+
+# Temporary/generated files
+tmp.jpg
+*.png
+
 # Byte-compiled / optimized / DLL files
 **pycache**/
 *.py[cod]
