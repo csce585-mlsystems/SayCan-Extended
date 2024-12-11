@@ -1,0 +1,137 @@
+hydra:
+  run:
+    dir: ${train.train_dir}
+  sweep:
+    dir: multirun/${now:%Y-%m-%d}/${now:%H-%M-%S}
+    subdir: ${hydra.job.num}
+  hydra_logging:
+    version: 1
+    formatters:
+      simple:
+        format: '[%(asctime)s][HYDRA] %(message)s'
+    handlers:
+      console:
+        class: logging.StreamHandler
+        formatter: simple
+        stream: ext://sys.stdout
+    root:
+      level: INFO
+      handlers:
+      - console
+    loggers:
+      logging_example:
+        level: DEBUG
+    disable_existing_loggers: false
+  job_logging:
+    version: 1
+    formatters:
+      simple:
+        format: '[%(asctime)s][%(name)s][%(levelname)s] - %(message)s'
+    handlers:
+      console:
+        class: logging.StreamHandler
+        formatter: simple
+        stream: ext://sys.stdout
+      file:
+        class: logging.FileHandler
+        formatter: simple
+        filename: ${hydra.job.name}.log
+    root:
+      level: INFO
+      handlers:
+      - console
+      - file
+    disable_existing_loggers: false
+  sweeper:
+    _target_: hydra._internal.core_plugins.basic_sweeper.BasicSweeper
+    max_batch_size: null
+  launcher:
+    _target_: hydra._internal.core_plugins.basic_launcher.BasicLauncher
+  help:
+    app_name: ${hydra.job.name}
+    header: '${hydra.help.app_name} is powered by Hydra.
+
+      '
+    footer: 'Powered by Hydra (https://hydra.cc)
+
+      Use --hydra-help to view Hydra specific help
+
+      '
+    template: '${hydra.help.header}
+
+      == Configuration groups ==
+
+      Compose your configuration from those groups (group=option)
+
+
+      $APP_CONFIG_GROUPS
+
+
+      == Config ==
+
+      Override anything in the config (foo.bar=value)
+
+
+      $CONFIG
+
+
+      ${hydra.help.footer}
+
+      '
+  hydra_help:
+    hydra_help: ???
+    template: 'Hydra (${hydra.runtime.version})
+
+      See https://hydra.cc for more info.
+
+
+      == Flags ==
+
+      $FLAGS_HELP
+
+
+      == Configuration groups ==
+
+      Compose your configuration from those groups (For example, append hydra/job_logging=disabled
+      to command line)
+
+
+      $HYDRA_CONFIG_GROUPS
+
+
+      Use ''--cfg hydra'' to Show the Hydra config.
+
+      '
+  output_subdir: .hydra
+  overrides:
+    hydra: []
+    task:
+    - train.task=multi-language-conditioned
+    - train.agent=two_stream_full_clip_lingunet_lat_transporter
+    - train.n_demos=1000
+    - root_dir=/gscratch/scrubbed/mshr/dvnets
+    - train.exp_folder=02may-add-conv-mult
+    - train.data_dir=/gscratch/scrubbed/mshr/dvnets/data_may01
+    - train.lang_fusion_type=mult
+    - train.attn_stream_fusion_type=add
+    - train.trans_stream_fusion_type=conv
+    - dataset.type=multi
+    - dataset.cache=False
+    - train.n_steps=1201000
+  job:
+    name: train
+    override_dirname: dataset.cache=False,dataset.type=multi,root_dir=/gscratch/scrubbed/mshr/dvnets,train.agent=two_stream_full_clip_lingunet_lat_transporter,train.attn_stream_fusion_type=add,train.data_dir=/gscratch/scrubbed/mshr/dvnets/data_may01,train.exp_folder=02may-add-conv-mult,train.lang_fusion_type=mult,train.n_demos=1000,train.n_steps=1201000,train.task=multi-language-conditioned,train.trans_stream_fusion_type=conv
+    id: ???
+    num: ???
+    config_name: train.yaml
+    env_set: {}
+    env_copy: []
+    config:
+      override_dirname:
+        kv_sep: '='
+        item_sep: ','
+        exclude_keys: []
+  runtime:
+    version: 1.0.5
+    cwd: /gscratch/cse/mshr/research/dvnets
+  verbose: false

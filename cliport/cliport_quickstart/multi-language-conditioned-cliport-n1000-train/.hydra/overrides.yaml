@@ -1,0 +1,12 @@
+- train.task=multi-language-conditioned
+- train.agent=two_stream_full_clip_lingunet_lat_transporter
+- train.n_demos=1000
+- root_dir=/gscratch/scrubbed/mshr/dvnets
+- train.exp_folder=02may-add-conv-mult
+- train.data_dir=/gscratch/scrubbed/mshr/dvnets/data_may01
+- train.lang_fusion_type=mult
+- train.attn_stream_fusion_type=add
+- train.trans_stream_fusion_type=conv
+- dataset.type=multi
+- dataset.cache=False
+- train.n_steps=1201000

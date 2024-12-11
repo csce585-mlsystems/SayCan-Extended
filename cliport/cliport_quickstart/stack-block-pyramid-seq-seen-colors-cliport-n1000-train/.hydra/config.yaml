@@ -1,0 +1,57 @@
+root_dir: /gscratch/scrubbed/mshr/dvnets
+tag: default
+debug: false
+wandb:
+  run_name: dvnets0
+  logger:
+    entity: mshr
+    project: dvnets
+    tags: []
+    group: train
+    offline: false
+  saver:
+    upload: false
+    monitor: val_loss
+dataset:
+  type: single
+  images: true
+  cache: false
+train:
+  exp_folder: 02may-add-conv-mult
+  train_dir: ${root_dir}/${train.exp_folder}/${train.task}-${train.agent}-n${train.n_demos}-train
+  data_dir: /gscratch/scrubbed/mshr/dvnets/data_may01
+  task: stack-block-pyramid-seq-seen-colors
+  agent: two_stream_full_clip_lingunet_lat_transporter
+  hz: 240
+  batchnorm: false
+  n_demos: 1000
+  n_steps: 201000
+  n_runs: 1
+  n_rotations: 36
+  interval: 1000
+  gpu:
+  - 0
+  log: false
+  val_iter: 1
+  lr: 0.0001
+  val_ds_size: 100
+  save_iterations:
+  - 1000
+  - 2000
+  - 3000
+  - 4000
+  - 5000
+  - 7000
+  - 10000
+  - 20000
+  - 40000
+  - 80000
+  - 120000
+  - 160000
+  - 200000
+  load_from_last_ckpt: true
+  stream_one_backbone: plain_resnet
+  stream_two_backbone: clip_resnet
+  attn_stream_fusion_type: add
+  trans_stream_fusion_type: conv
+  lang_fusion_type: mult
